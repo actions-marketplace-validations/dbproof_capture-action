@@ -1,0 +1,33 @@
+name: DbProof capture
+description: Capture your production schema and planner statistics for DbProof. Never reads a row of your data.
+author: DbProof
+branding:
+  icon: database
+  color: blue
+inputs:
+  kind:
+    description: When this capture runs, pre (before migrations), post (after) or scheduled.
+    required: true
+  capture-token:
+    description: The project's upload-only capture token.
+    required: true
+  capture-dsn:
+    description: Connection string for a role that can read the migration history, such as the one your migrations run as.
+    required: true
+  dbproof-url:
+    description: DbProof's address.
+    default: https://app.dbproof.dev
+  expect-version:
+    description: Post-deploy, the migration version to wait for in the history.
+    default: ""
+runs:
+  using: composite
+  steps:
+    # The agent, open source at github.com/dbproof/agent, pinned by commit.
+    - uses: dbproof/agent/actions/capture@92f5018b943b5735b69bc70d93c460dd14436335 # v0.2.0
+      with:
+        kind: ${{ inputs.kind }}
+        dbproof-url: ${{ inputs.dbproof-url }}
+        capture-token: ${{ inputs.capture-token }}
+        capture-dsn: ${{ inputs.capture-dsn }}
+        expect-version: ${{ inputs.expect-version }}
