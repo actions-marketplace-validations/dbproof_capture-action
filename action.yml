@@ -1,5 +1,5 @@
 name: DbProof capture
-description: Capture your production schema and planner statistics for DbProof. Never reads a row of your data.
+description: Capture your PostgreSQL production schema and planner statistics for DbProof's migration checks. Never reads a row.
 author: DbProof
 branding:
   icon: database
